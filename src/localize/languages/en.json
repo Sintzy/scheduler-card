@@ -172,6 +172,24 @@
         "tags": "Tags"
       },
       "card_editor": {
+        "groups": {
+          "entities": {
+            "heading": "Entities",
+            "secondary": "What the card can control"
+          },
+          "card_appearance": {
+            "heading": "Card appearance",
+            "secondary": "Which parts of the card to show, visual options and defaults"
+          },
+          "schedule_creation": {
+            "heading": "Schedule creation",
+            "secondary": "Options when creating or editing individual schedules"
+          },
+          "display": {
+            "heading": "Display",
+            "secondary": "How each schedule appears in the list"
+          }
+        },
         "tabs": {
           "entities": "Entities",
           "other": "Other"

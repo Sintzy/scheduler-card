@@ -9,3 +9,7 @@ dist/
 !dist/scheduler-card.js
 .history
 __pycache__/
+
+
+rollup.watch-ha.js
+scripts/watch-ha.mjs

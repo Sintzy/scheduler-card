@@ -8,7 +8,8 @@
     "rollup": "rollup -c",
     "lint": "eslint src/**/*.ts --fix",
     "format": "prettier --write '**/*.ts'",
-    "start": "rollup -c --watch"
+    "start": "rollup -c --watch",
+    "watch:ha": "node scripts/watch-ha.mjs"
   },
   "repository": {
     "type": "git",
