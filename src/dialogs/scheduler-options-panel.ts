@@ -185,17 +185,6 @@ export class SchedulerOptionsPanel extends LitElement {
         </div>
       </div>
 
-      <span class="header">${hassLocalize('ui.common.name', this.hass)}:</span>
-      <div class="period">
-        <ha-input
-          value=${this.schedule.name || ''}
-          placeholder=${this.schedule.name
-        ? ''
-        : hassLocalize('ui.common.name', this.hass)}
-          @input=${this.updateName}
-        ></ha-input>
-      </div>
-
       <span class="header">${localize('ui.panel.options.tags', this.hass)}:</span>
       <div>
         <scheduler-combo-selector
@@ -562,11 +551,6 @@ export class SchedulerOptionsPanel extends LitElement {
           ? TRepeatType.Repeat
           : this.schedule!.repeat_type,
     };
-  }
-
-  updateName(ev: InputEvent) {
-    const value = (ev.target as HTMLInputElement).value;
-    this.schedule = { ...this.schedule, name: value.trim() };
   }
 
   tagsUpdated(ev: CustomEvent) {

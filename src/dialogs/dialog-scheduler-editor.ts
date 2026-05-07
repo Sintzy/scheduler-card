@@ -1,4 +1,4 @@
-import { mdiArrowLeft, mdiClose, mdiCogOutline } from "@mdi/js";
+import { mdiArrowLeft, mdiClose, mdiCogOutline, mdiPencil } from "@mdi/js";
 import { LitElement, PropertyValues, html } from "lit";
 import { customElement, property, state } from "lit/decorators";
 import { CardConfig, EditorMode, Schedule, ScheduleEntry } from "../types";
@@ -43,6 +43,7 @@ export class DialogSchedulerEditor extends LitElement {
   @state() selectedSlot: number | null = null;
 
   @state() _panel: "main" | "options" = "main";
+  @state() _editingName: boolean = false;
 
   @state() _viewMode: EditorMode = EditorMode.Single;
   set viewMode(mode: EditorMode) {
@@ -63,6 +64,7 @@ export class DialogSchedulerEditor extends LitElement {
     this._params = params;
     this.schedule = params.schedule;
     this._panel = "main";
+    this._editingName = false;
     this.large = false;
 
     const isTimeSchemeType = this.schedule.entries[this.selectedEntry!].slots.filter(e => e.actions.length && isDefined(e.stop)).length > 0
@@ -108,6 +110,12 @@ export class DialogSchedulerEditor extends LitElement {
           <ha-icon-button
             slot="actionItems"
             .label=""
+            .path=${mdiPencil}
+            @click=${() => { this._editingName = true; this.updateComplete.then(() => { const el = this.shadowRoot?.querySelector('div[slot="title"] input') as HTMLInputElement; el?.focus(); el?.select(); }); }}
+          ></ha-icon-button>
+          <ha-icon-button
+            slot="actionItems"
+            .label=""
             .path=${mdiCogOutline}
             @click=${() => { this._panel = "options" }}
           ></ha-icon-button>
@@ -121,12 +129,23 @@ export class DialogSchedulerEditor extends LitElement {
           ></ha-icon-button>
           `
       }
-          <div slot="title" @click=${() => this.large = !this.large}>
-            ${this._params.editItem
-        ? this.schedule.name
-          ? this.schedule?.name
-          : localize('ui.panel.common.default_name', this.hass, '{id}', this._params.editItem)
-        : localize('ui.panel.common.new_schedule', this.hass)
+          <div slot="title">
+            ${this._editingName
+        ? html`<input
+                type="text"
+                .value=${this.schedule.name || ''}
+                placeholder=${this._params.editItem
+            ? localize('ui.panel.common.default_name', this.hass, '{id}', this._params.editItem)
+            : localize('ui.panel.common.new_schedule', this.hass)}
+                @keydown=${(ev: KeyboardEvent) => { if (ev.key === 'Enter') (ev.target as HTMLInputElement).blur(); }}
+                @blur=${(ev: FocusEvent) => { this.schedule = { ...this.schedule, name: (ev.target as HTMLInputElement).value.trim() }; this._editingName = false; }}
+                style="border:none;border-bottom:1px solid currentColor;background:transparent;outline:none;font:inherit;color:inherit;width:100%;padding:0 0 1px 0;"
+              />`
+        : html`<span @click=${() => this.large = !this.large}>
+                ${this._params.editItem
+            ? this.schedule.name || localize('ui.panel.common.default_name', this.hass, '{id}', this._params.editItem)
+            : localize('ui.panel.common.new_schedule', this.hass)}
+              </span>`
       }
           </div>
         </ha-dialog-header>
