@@ -8,7 +8,7 @@ import { fireEvent } from "./lib/fire_event";
 import { NumberSelector, SelectSelector } from "./lib/selector";
 import { fetchTags } from "./data/store/fetch_tags";
 import { sortByName } from "./lib/sort";
-import { mdiArrowRight } from "@mdi/js";
+import { mdiArrowRight, mdiFormatListBulleted, mdiPalette, mdiCalendarClock, mdiMonitor } from "@mdi/js";
 import { DEFAULT_PRIMARY_INFO_DISPLAY, DEFAULT_SECONDARY_INFO_DISPLAY, DEFAULT_SORT_BY, DEFAULT_TIME_STEP } from "./const";
 import { loadConfigFromEntityRegistry } from "./data/load_config_from_entity_registry";
 import { hassLocalize } from "./localize/hassLocalize";
@@ -69,7 +69,7 @@ export class SchedulerCardEditor extends LitElement {
       <div class="card-config">
 
         <ha-expansion-panel
-          .header=${localize('ui.panel.card_editor.groups.entities.heading', this.hass)}
+          .header=${html`<span style="display:inline-flex;align-items:center;gap:6px;"><ha-svg-icon .path=${mdiFormatListBulleted} style="width:20px;height:20px;flex-shrink:0;"></ha-svg-icon>${localize('ui.panel.card_editor.groups.entities.heading', this.hass)}</span>`}
           .secondary=${localize('ui.panel.card_editor.groups.entities.secondary', this.hass)}
           outlined
           ?expanded=${true}
@@ -126,7 +126,7 @@ export class SchedulerCardEditor extends LitElement {
         </ha-expansion-panel>
 
         <ha-expansion-panel
-          .header=${localize('ui.panel.card_editor.groups.card_appearance.heading', this.hass)}
+          .header=${html`<span style="display:inline-flex;align-items:center;gap:6px;"><ha-svg-icon .path=${mdiPalette} style="width:20px;height:20px;flex-shrink:0;"></ha-svg-icon>${localize('ui.panel.card_editor.groups.card_appearance.heading', this.hass)}</span>`}
           .secondary=${localize('ui.panel.card_editor.groups.card_appearance.secondary', this.hass)}
           outlined
         >
@@ -172,7 +172,7 @@ export class SchedulerCardEditor extends LitElement {
         </ha-expansion-panel>
 
         <ha-expansion-panel
-          .header=${localize('ui.panel.card_editor.groups.schedule_creation.heading', this.hass)}
+          .header=${html`<span style="display:inline-flex;align-items:center;gap:6px;"><ha-svg-icon .path=${mdiCalendarClock} style="width:20px;height:20px;flex-shrink:0;"></ha-svg-icon>${localize('ui.panel.card_editor.groups.schedule_creation.heading', this.hass)}</span>`}
           .secondary=${localize('ui.panel.card_editor.groups.schedule_creation.secondary', this.hass)}
           outlined
         >
@@ -214,7 +214,7 @@ export class SchedulerCardEditor extends LitElement {
         </ha-expansion-panel>
 
         <ha-expansion-panel
-          .header=${localize('ui.panel.card_editor.groups.display.heading', this.hass)}
+          .header=${html`<span style="display:inline-flex;align-items:center;gap:6px;"><ha-svg-icon .path=${mdiMonitor} style="width:20px;height:20px;flex-shrink:0;"></ha-svg-icon>${localize('ui.panel.card_editor.groups.display.heading', this.hass)}</span>`}
           .secondary=${localize('ui.panel.card_editor.groups.display.secondary', this.hass)}
           outlined
         >
